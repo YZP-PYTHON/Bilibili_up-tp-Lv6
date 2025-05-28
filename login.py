@@ -54,7 +54,7 @@ class login:
             "qrcode_key": qrcode_key
         }
         
-        print("\n请使用B站APP扫描二维码...")
+        print("\n请使用浏览器扫描二维码...")
         print("等待扫码确认...")
         
         while True:
@@ -115,8 +115,13 @@ class login:
         else:
             return -1
 def get_buvid():
-    id=requests.get('https://api.bilibili.com/x/frontend/finger/spi')
-    id.raise_for_status()
+    headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Referer": "https://www.bilibili.com/",
+            "Origin": "https://www.bilibili.com"
+        }
+    id=requests.get('https://api.bilibili.com/x/frontend/finger/spi',headers=headers)
+    #id.raise_for_status()
     id_dit=id.json()
     print(id_dit)
     code=id_dit['code']
